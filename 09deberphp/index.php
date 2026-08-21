@@ -1,313 +1,419 @@
 <?php
-// Página principal del sistema de control vehicular
+    session_start();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VEHIX | Control de Accesos</title>
+    <title>Iniciar sesión</title>
 
-    <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-    <!-- Bootstrap Icons -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    <meta
+        name="description"
+        content="Accede a tu cuenta de forma segura."
     >
 
     <style>
         :root {
-            --negro: #080b0a;
-            --panel: #101513;
-            --panel-2: #151b18;
-            --verde: #b6f34a;
-            --verde-oscuro: #86bd26;
-            --gris: #8d9791;
-            --borde: #28302c;
-            --blanco: #f1f5f2;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --text: #111827;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --background: #f8fafc;
+            --white: #ffffff;
+            --danger: #dc2626;
+            --danger-bg: #fef2f2;
+            --success: #16a34a;
+            --radius: 14px;
         }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             min-height: 100vh;
-            background:
-                radial-gradient(circle at 80% 10%, rgba(182,243,74,.08), transparent 25%),
-                radial-gradient(circle at 10% 90%, rgba(182,243,74,.05), transparent 30%),
-                var(--negro);
-            color: var(--blanco);
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .contenedor {
-            max-width: 1100px;
-        }
-
-        /* Barra superior */
-        .barra-superior {
-            border-bottom: 1px solid var(--borde);
-            padding: 18px 0;
-        }
-
-        .marca {
-            font-weight: 900;
-            letter-spacing: 3px;
-            font-size: 22px;
-        }
-
-        .marca span {
-            color: var(--verde);
-        }
-
-        .estado {
-            color: var(--verde);
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-
-        .punto {
-            width: 8px;
-            height: 8px;
-            background: var(--verde);
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 12px var(--verde);
-            animation: pulsar 1.8s infinite;
-        }
-
-        @keyframes pulsar {
-            0%, 100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .35;
-            }
-        }
-
-        /* Panel */
-        .panel-principal {
-            margin-top: 55px;
-            background: var(--panel);
-            border: 1px solid var(--borde);
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 25px 70px rgba(0,0,0,.45);
-        }
-
-        /* Columna izquierda */
-        .intro {
-            background:
-                linear-gradient(rgba(16,21,19,.88), rgba(16,21,19,.98)),
-                radial-gradient(circle at center, #293629, #101513);
-            min-height: 600px;
-            padding: 55px 40px;
-            border-right: 1px solid var(--borde);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .numero {
-            font-size: 11px;
-            color: var(--verde);
-            letter-spacing: 3px;
-            font-weight: bold;
-        }
-
-        .titulo {
-            font-size: clamp(42px, 6vw, 72px);
-            line-height: .9;
-            font-weight: 900;
-            letter-spacing: -4px;
-            margin-top: 20px;
-        }
-
-        .titulo span {
-            color: var(--verde);
-        }
-
-        .descripcion {
-            color: var(--gris);
-            max-width: 390px;
-            line-height: 1.7;
-            margin-top: 25px;
-        }
-
-        .vehiculo-icono {
-            font-size: 100px;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(182,243,74,.35);
-            text-align: center;
-        }
-
-        .mini-info {
-            border-top: 1px solid var(--borde);
-            padding-top: 20px;
-        }
-
-        .mini-info small {
-            color: var(--gris);
-        }
-
-        /* Formulario */
-        .formulario {
-            padding: 55px 45px;
-            background: #0c100e;
-        }
-
-        .formulario-titulo {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .formulario-subtitulo {
-            color: var(--gris);
-            font-size: 14px;
-            margin-bottom: 40px;
-        }
-
-        .campo {
-            margin-bottom: 28px;
-        }
-
-        .campo label {
-            color: #cbd3ce;
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 9px;
-        }
-
-        .form-control,
-        .form-select {
-            background: var(--panel-2);
-            color: var(--blanco);
-            border: 1px solid var(--borde);
-            border-radius: 3px;
-            padding: 15px;
-            transition: .2s;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            background: #19201c;
-            color: white;
-            border-color: var(--verde);
-            box-shadow: 0 0 0 3px rgba(182,243,74,.08);
-        }
-
-        .form-control::placeholder {
-            color: #59635d;
-        }
-
-        .form-select option {
-            background: var(--panel);
-        }
-
-        /* Matrícula */
-        .placa-contenedor {
-            position: relative;
-        }
-
-        .placa-contenedor::before {
-            content: "EC";
-            position: absolute;
-            left: 12px;
-            top: 13px;
-            bottom: 13px;
-            width: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--verde);
-            color: #111;
-            font-size: 11px;
-            font-weight: 900;
-            z-index: 2;
-            border-radius: 2px;
+
+            padding: 24px;
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(79, 70, 229, 0.12),
+                    transparent 35%
+                ),
+                var(--background);
         }
 
-        .placa-input {
-            padding-left: 60px !important;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .ayuda {
-            color: #59635d;
-            font-size: 11px;
-            margin-top: 8px;
-        }
-
-        /* Botón */
-        .btn-acceso {
+        .auth-container {
             width: 100%;
-            background: var(--verde);
-            color: #10140e;
-            border: none;
-            border-radius: 3px;
-            padding: 16px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            transition: .2s;
+            max-width: 430px;
         }
 
-        .btn-acceso:hover {
-            background: #c9ff69;
-            color: #10140e;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(182,243,74,.15);
+        .auth-card {
+            background: var(--white);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 20px 50px rgba(15, 23, 42, 0.08),
+                0 4px 12px rgba(15, 23, 42, 0.04);
         }
 
-        .seguridad {
-            margin-top: 25px;
-            color: #59635d;
-            font-size: 11px;
+        .brand {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .brand-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            background: var(--primary);
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+        .brand-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .heading {
             text-align: center;
+            margin-bottom: 30px;
         }
 
-        .seguridad i {
-            color: var(--verde);
+        .heading h1 {
+            font-size: 28px;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+
+            margin-bottom: 8px;
         }
 
-        /* Responsive */
-        @media (max-width: 767px) {
-            .panel-principal {
-                margin-top: 25px;
+        .heading p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            padding: 12px 14px;
+            margin-bottom: 20px;
+
+            color: var(--danger);
+            background: var(--danger-bg);
+
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .alert svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+
+            width: 19px;
+            height: 19px;
+
+            transform: translateY(-50%);
+
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 48px;
+
+            padding: 0 44px;
+
+            color: var(--text);
+            background: var(--white);
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input:hover {
+            border-color: #d1d5db;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transform: translateY(-50%);
+
+            border: 0;
+            background: transparent;
+
+            color: #9ca3af;
+
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .password-toggle:hover {
+            color: var(--text);
+            background: #f3f4f6;
+        }
+
+        .password-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 24px;
+
+            font-size: 14px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 16px;
+            height: 16px;
+
+            accent-color: var(--primary);
+
+            cursor: pointer;
+        }
+
+        .link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 0;
+            border-radius: 10px;
+
+            color: white;
+            background: var(--primary);
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .submit-button:hover {
+            background: var(--primary-hover);
+
+            box-shadow:
+                0 8px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .submit-button:active {
+            transform: translateY(1px);
+        }
+
+        .submit-button:focus-visible {
+            outline: 3px solid rgba(79, 70, 229, 0.25);
+            outline-offset: 2px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin: 28px 0;
+
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: var(--border);
+        }
+
+        .register {
+            text-align: center;
+
+            color: var(--text-secondary);
+
+            font-size: 14px;
+        }
+
+        .register .link {
+            margin-left: 4px;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            margin-top: 24px;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+        .security-note svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 16px;
             }
 
-            .intro {
-                min-height: auto;
-                padding: 35px 25px;
-                border-right: none;
-                border-bottom: 1px solid var(--borde);
+            .auth-card {
+                padding: 28px 22px;
+                border-radius: 16px;
             }
 
-            .vehiculo-icono {
-                font-size: 65px;
-                margin-top: 30px;
+            .heading h1 {
+                font-size: 25px;
             }
 
-            .formulario {
-                padding: 35px 25px;
+            .form-options {
+                align-items: flex-start;
+                gap: 12px;
             }
+        }
 
-            .titulo {
-                font-size: 50px;
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
             }
         }
     </style>
@@ -315,196 +421,344 @@
 
 <body>
 
-<div class="container contenedor">
+<main class="auth-container">
 
-    <!-- Barra superior -->
-    <div class="barra-superior d-flex justify-content-between align-items-center">
+    <section class="auth-card" aria-labelledby="login-title">
 
-        <div class="marca">
-            VEH<span>IX</span>
+        <!-- Logo -->
+        <div class="brand" aria-hidden="true">
+            <div class="brand-icon">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="10"
+                        rx="2"
+                    />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+
+            </div>
         </div>
 
-        <div class="estado">
-            <span class="punto me-2"></span>
-            SISTEMA OPERATIVO
+
+        <!-- Encabezado -->
+        <div class="heading">
+
+            <h1 id="login-title">
+                Bienvenido de nuevo
+            </h1>
+
+            <p>
+                Inicia sesión para acceder a tu cuenta.
+            </p>
+
         </div>
 
-    </div>
 
-    <!-- Panel principal -->
-    <div class="panel-principal">
+        <!-- Mensaje de error -->
+        <div
+            class="alert"
+            role="alert"
+            aria-live="polite"
+        >
 
-        <div class="row g-0">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
 
-            <!-- Presentación -->
-            <div class="col-lg-6">
+            <span>
+                Por favor, completa todos los campos.
+            </span>
 
-                <section class="intro">
+        </div>
 
-                    <div>
-                        <div class="numero">
-                            // TERMINAL 01
-                        </div>
 
-                        <h1 class="titulo">
-                            CONTROL<br>
-                            <span>DE ACCESO.</span>
-                        </h1>
+        <!-- Formulario -->
+        <form method="POST" action="validar.php" autocomplete="on">
 
-                        <p class="descripcion">
-                            Registre el ingreso de vehículos de forma rápida,
-                            ordenada y segura. Complete los datos de la unidad
-                            para generar su comprobante de entrada.
-                        </p>
-                    </div>
+            <!-- Email -->
+            <div class="form-group">
 
-                    <div>
+                <label
+                    class="form-label"
+                    for="email"
+                >
+                    Correo electrónico
+                </label>
 
-                        <div class="vehiculo-icono">
-                            <i class="bi bi-car-front"></i>
-                        </div>
+                <div class="input-wrapper">
 
-                        <div class="mini-info d-flex justify-content-between">
-                            <div>
-                                <small>ESTACIÓN</small><br>
-                                <strong>ENTRADA A-01</strong>
-                            </div>
+                    <svg
+                        class="input-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <rect
+                            x="3"
+                            y="5"
+                            width="18"
+                            height="14"
+                            rx="2"
+                        />
+                        <polyline points="3,7 12,13 21,7"/>
+                    </svg>
 
-                            <div class="text-end">
-                                <small>ESTADO</small><br>
-                                <strong style="color:#b6f34a;">
-                                    DISPONIBLE
-                                </strong>
-                            </div>
-                        </div>
+                    <input
+                        class="form-input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="tu@email.com"
+                        autocomplete="email"
+                        required
+                        autofocus
+                    >
 
-                    </div>
-
-                </section>
+                </div>
 
             </div>
 
-            <!-- Formulario -->
-            <div class="col-lg-6">
 
-                <section class="formulario">
+            <!-- Contraseña -->
+            <div class="form-group">
 
-                    <div class="numero">
-                        REGISTRO / VEHÍCULO
-                    </div>
+                <label
+                    class="form-label"
+                    for="password"
+                >
+                    Contraseña
+                </label>
 
-                    <h2 class="formulario-titulo mt-2">
-                        Nueva entrada
-                    </h2>
+                <div class="input-wrapper">
 
-                    <p class="formulario-subtitulo">
-                        Introduzca los datos solicitados.
-                    </p>
+                    <svg
+                        class="input-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <rect
+                            x="3"
+                            y="11"
+                            width="18"
+                            height="10"
+                            rx="2"
+                        />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
 
-                    <form action="registro.php" method="POST">
+                    <input
+                        class="form-input"
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Introduce tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
 
-                        <!-- Placa -->
-                        <div class="campo">
-
-                            <label for="placa">
-                                <i class="bi bi-upc-scan me-1"></i>
-                                Identificación / Placa
-                            </label>
-
-                            <div class="placa-contenedor">
-
-                                <input
-                                    type="text"
-                                    class="form-control placa-input"
-                                    id="placa"
-                                    name="placa"
-                                    placeholder="ABC-1234"
-                                    maxlength="10"
-                                    autocomplete="off"
-                                    required
-                                >
-
-                            </div>
-
-                            <div class="ayuda">
-                                FORMATO DE IDENTIFICACIÓN VEHICULAR
-                            </div>
-
-                        </div>
-
-                        <!-- Tipo -->
-                        <div class="campo">
-
-                            <label for="tipo">
-                                <i class="bi bi-diagram-3 me-1"></i>
-                                Categoría
-                            </label>
-
-                            <select
-                                class="form-select"
-                                id="tipo"
-                                name="tipo"
-                                required
-                            >
-                                <option value="">Seleccione el tipo...</option>
-                                <option value="Automóvil">Automóvil</option>
-                                <option value="Motocicleta">Motocicleta</option>
-                                <option value="Camioneta">Camioneta</option>
-                                <option value="Camión">Camión</option>
-                                <option value="Bus">Bus</option>
-                            </select>
-
-                        </div>
-
-                        <!-- Hora -->
-                        <div class="campo">
-
-                            <label for="hora">
-                                <i class="bi bi-stopwatch me-1"></i>
-                                Hora de entrada
-                            </label>
-
-                            <input
-                                type="time"
-                                class="form-control"
-                                id="hora"
-                                name="hora"
-                                required
-                            >
-
-                        </div>
-
-                        <!-- Botón -->
-                        <button
-                            type="submit"
-                            class="btn btn-acceso"
+                    <?php
+                        if(isset($_SESSION['mensaje'])){
+                        $msg = $_SESSION['mensaje'];
+                        echo $msg;
+                        unset($_SESSION['mensaje']);
+                        }
+                    ?>
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="togglePassword"
+                        aria-label="Mostrar contraseña"
+                        title="Mostrar contraseña"
+                    >
+                        <svg
+                            id="eyeIcon"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                         >
-                            <i class="bi bi-box-arrow-in-right me-2"></i>
-                            CONFIRMAR INGRESO
-                        </button>
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
 
-                    </form>
-
-                    <div class="seguridad">
-                        <i class="bi bi-shield-lock-fill me-1"></i>
-                        INFORMACIÓN PROCESADA MEDIANTE CONEXIÓN SEGURA
-                    </div>
-
-                </section>
+                </div>
 
             </div>
 
+
+            <!-- Opciones -->
+            <div class="form-options">
+
+                <label class="remember">
+
+                    <input
+                        type="checkbox"
+                        name="remember"
+                        value="1"
+                    >
+
+                    <span>
+                        Recordarme
+                    </span>
+
+                </label>
+
+                <a
+                    class="link"
+                    href="forgot-password.php"
+                >
+                    ¿Olvidaste tu contraseña?
+                </a>
+
+            </div>
+
+
+            <!-- Botón -->
+            <button
+                type="submit"
+                class="submit-button"
+                id="submitButton"
+            >
+                Iniciar sesión
+            </button>
+
+        </form>
+
+
+        <!-- Registro -->
+        <div class="divider">
+            <span>o</span>
         </div>
 
-    </div>
+        <div class="register">
 
-    <div class="text-center py-4">
-        <small style="color:#3f4943;">
-            VEHIX CONTROL SYSTEM · TERMINAL 01
-        </small>
-    </div>
+            ¿Todavía no tienes una cuenta?
 
-</div>
+            <a
+                class="link"
+                href="register.php"
+            >
+                Crear cuenta
+            </a>
+
+        </div>
+
+
+        <!-- Seguridad -->
+        <div class="security-note">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="10"
+                    rx="2"
+                />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+
+            <span>
+                Tus datos están protegidos
+            </span>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    const passwordInput =
+        document.getElementById('password');
+
+    const togglePassword =
+        document.getElementById('togglePassword');
+
+    togglePassword.addEventListener('click', function () {
+
+        const isPassword =
+            passwordInput.type === 'password';
+
+        passwordInput.type =
+            isPassword ? 'text' : 'password';
+
+        togglePassword.setAttribute(
+            'aria-label',
+            isPassword
+                ? 'Ocultar contraseña'
+                : 'Mostrar contraseña'
+        );
+
+        togglePassword.setAttribute(
+            'title',
+            isPassword
+                ? 'Ocultar contraseña'
+                : 'Mostrar contraseña'
+        );
+    });
+
+
+    // Evitar doble envío accidental del formulario
+
+    const form =
+        document.querySelector('form');
+
+    const submitButton =
+        document.getElementById('submitButton');
+
+    form.addEventListener('submit', function () {
+
+        submitButton.disabled = true;
+        submitButton.textContent =
+            'Iniciando sesión...';
+
+    });
+
+</script>
 
 </body>
 </html>
