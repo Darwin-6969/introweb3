@@ -443,3 +443,110 @@ footer {
     }
 
 }
+
+/* =========================================
+   BOTÓN DE COMPRA
+   ========================================= */
+
+   .boton-comprar {
+    background: linear-gradient(135deg, #16a34a, #059669);
+    color: white;
+}
+
+.boton-comprar:hover {
+    background: linear-gradient(135deg, #15803d, #047857);
+}
+
+
+/* =========================================
+   COMPRA EXITOSA
+   ========================================= */
+
+.compra-exitosa {
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icono-exito {
+    width: 80px;
+    height: 80px;
+    margin: 10px auto 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #16a34a,
+        #10b981
+    );
+
+    color: white;
+
+    font-size: 42px;
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 20px rgba(16, 185, 129, 0.25);
+
+    animation: aparecer 0.7s ease;
+}
+
+.compra-exitosa h2 {
+    color: #166534;
+    margin-bottom: 12px;
+}
+
+.compra-exitosa > p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.resumen-compra {
+    background: linear-gradient(
+        135deg,
+        #f0fdfa,
+        #f5f3ff
+    );
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    text-align: left;
+}
+
+.resumen-compra p {
+    padding: 8px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.resumen-compra p:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   RESPONSIVE PARA BOTONES DEL CARRITO
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .acciones > div {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .acciones > div form,
+    .acciones > div button {
+        width: 100%;
+    }
+
+}

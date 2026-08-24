@@ -27,6 +27,26 @@ $productos = [
         'nombre' => 'Televisor Smart TV',
         'precio' => 529.99,
         'imagen' => 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500'
+    ],
+    5 => [
+        'nombre' => 'Cocina a Gas Mabe',
+        'precio' => 429.99,
+        'imagen' => 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500'
+    ],
+    6 => [
+        'nombre' => 'Licuadora Oster',
+        'precio' => 79.99,
+        'imagen' => 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500'
+    ],
+    7 => [
+        'nombre' => 'Aspiradora Electrolux',
+        'precio' => 159.99,
+        'imagen' => 'https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500'
+    ],
+    8 => [
+        'nombre' => 'Cafetera Automática',
+        'precio' => 119.99,
+        'imagen' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500'
     ]
 ];
 
@@ -40,37 +60,49 @@ foreach ($_SESSION['carrito'] as $producto) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectroHogar PHP</title>
+
+    <title>ElectroHogar</title>
+
     <link rel="stylesheet" href="estilos.css">
 </head>
 
 <body>
 
 <header class="header">
+
     <div class="contenedor header-contenido">
 
-        <h1>🏠 ElectroHogar PHP</h1>
+        <h1>🏠 ElectroHogar</h1>
 
         <a href="carrito.php" class="boton carrito-link">
             Ver Carrito
-            <span class="contador"><?php echo $cantidadCarrito; ?></span>
+
+            <span class="contador">
+                <?php echo $cantidadCarrito; ?>
+            </span>
         </a>
 
     </div>
+
 </header>
 
 <main class="contenedor">
 
     <section class="hero">
+
         <h2>Electrodomésticos para tu hogar</h2>
 
         <p>
-            Encuentra productos prácticos y modernos para hacer tu hogar más cómodo.
+            Encuentra productos modernos y prácticos para hacer
+            tu hogar más cómodo.
         </p>
+
     </section>
+
 
     <section class="productos">
 
@@ -113,7 +145,10 @@ foreach ($_SESSION['carrito'] as $producto) {
                             value="<?php echo $producto['precio']; ?>"
                         >
 
-                        <button type="submit" class="boton boton-agregar">
+                        <button
+                            type="submit"
+                            class="boton boton-agregar"
+                        >
                             Agregar al Carrito
                         </button>
 
@@ -130,10 +165,13 @@ foreach ($_SESSION['carrito'] as $producto) {
 </main>
 
 <footer>
+
     <p>
-        ElectroHogar PHP &copy; <?php echo date('Y'); ?>
+        ElectroHogar&copy; <?php echo date('Y'); ?>
     </p>
+
 </footer>
 
 </body>
+
 </html>

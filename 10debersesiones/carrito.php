@@ -8,20 +8,31 @@ if (!isset($_SESSION['carrito'])) {
 }
 
 $total = 0;
+
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Carrito</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mi Carrito - ElectroHogar</title>
+
     <link rel="stylesheet" href="estilos.css">
+
 </head>
 
 <body>
 
 <header class="header">
+
     <div class="contenedor header-contenido">
 
         <h1>🛒 Mi Carrito</h1>
@@ -31,7 +42,9 @@ $total = 0;
         </a>
 
     </div>
+
 </header>
+
 
 <main class="contenedor">
 
@@ -39,68 +52,123 @@ $total = 0;
 
         <h2>Productos seleccionados</h2>
 
+
         <?php if (empty($_SESSION['carrito'])): ?>
 
             <div class="carrito-vacio">
 
-                <div class="icono-vacio">🛒</div>
+                <div class="icono-vacio">
+                    🛒
+                </div>
 
-                <h3>Tu carrito está vacío</h3>
+                <h3>
+                    Tu carrito está vacío
+                </h3>
 
                 <p>
                     Todavía no has agregado ningún producto.
                 </p>
 
-                <a href="index.php" class="boton boton-agregar">
+                <a
+                    href="index.php"
+                    class="boton boton-agregar"
+                >
                     Ir al Catálogo
                 </a>
 
             </div>
 
+
         <?php else: ?>
+
 
             <div class="tabla-contenedor">
 
                 <table>
 
                     <thead>
+
                         <tr>
-                            <th>Producto</th>
-                            <th>Precio Unitario</th>
-                            <th>Cantidad</th>
-                            <th>Subtotal</th>
+
+                            <th>
+                                Producto
+                            </th>
+
+                            <th>
+                                Precio Unitario
+                            </th>
+
+                            <th>
+                                Cantidad
+                            </th>
+
+                            <th>
+                                Subtotal
+                            </th>
+
                         </tr>
+
                     </thead>
+
 
                     <tbody>
 
                     <?php foreach ($_SESSION['carrito'] as $producto): ?>
 
                         <?php
-                        $subtotal = $producto['precio'] * $producto['cantidad'];
+
+                        $subtotal =
+                            $producto['precio']
+                            * $producto['cantidad'];
+
                         $total += $subtotal;
+
                         ?>
 
                         <tr>
 
                             <td>
-                                <?php echo htmlspecialchars($producto['nombre']); ?>
+                                <?php
+                                echo htmlspecialchars(
+                                    $producto['nombre']
+                                );
+                                ?>
                             </td>
 
                             <td>
-                                $<?php echo number_format($producto['precio'], 2); ?>
+                                $<?php
+                                echo number_format(
+                                    $producto['precio'],
+                                    2
+                                );
+                                ?>
                             </td>
 
                             <td>
+
                                 <span class="cantidad">
-                                    <?php echo $producto['cantidad']; ?>
+
+                                    <?php
+                                    echo $producto['cantidad'];
+                                    ?>
+
                                 </span>
+
                             </td>
 
                             <td>
+
                                 <strong>
-                                    $<?php echo number_format($subtotal, 2); ?>
+
+                                    $<?php
+                                    echo number_format(
+                                        $subtotal,
+                                        2
+                                    );
+                                    ?>
+
                                 </strong>
+
                             </td>
 
                         </tr>
@@ -109,18 +177,34 @@ $total = 0;
 
                     </tbody>
 
+
                     <tfoot>
 
                         <tr>
+
                             <td colspan="3">
-                                <strong>Total a pagar:</strong>
+
+                                <strong>
+                                    Total a pagar:
+                                </strong>
+
                             </td>
 
                             <td>
+
                                 <strong class="total">
-                                    $<?php echo number_format($total, 2); ?>
+
+                                    $<?php
+                                    echo number_format(
+                                        $total,
+                                        2
+                                    );
+                                    ?>
+
                                 </strong>
+
                             </td>
+
                         </tr>
 
                     </tfoot>
@@ -129,23 +213,51 @@ $total = 0;
 
             </div>
 
+
             <div class="acciones">
 
-                <a href="index.php" class="boton">
+                <a
+                    href="index.php"
+                    class="boton"
+                >
                     ← Seguir Comprando
                 </a>
 
-                <form action="vaciar.php" method="POST">
 
-                    <button
-                        type="submit"
-                        class="boton boton-vaciar"
-                        onclick="return confirm('¿Seguro que deseas vaciar el carrito?');"
+                <div style="display: flex; gap: 10px;">
+
+                    <form
+                        action="vaciar.php"
+                        method="POST"
                     >
-                        🗑 Vaciar Carrito
-                    </button>
 
-                </form>
+                        <button
+                            type="submit"
+                            class="boton boton-vaciar"
+                            onclick="return confirm('¿Seguro que deseas vaciar el carrito?');"
+                        >
+                            🗑 Vaciar Carrito
+                        </button>
+
+                    </form>
+
+
+                    <form
+                        action="comprar.php"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="boton boton-comprar"
+                            onclick="return confirm('¿Deseas confirmar tu compra?');"
+                        >
+                            ✓ Finalizar Compra
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
@@ -155,9 +267,15 @@ $total = 0;
 
 </main>
 
+
 <footer>
-    <p>Mini Carrito de Compras &copy; <?php echo date('Y'); ?></p>
+
+    <p>
+        ElectroHogar PHP &copy; <?php echo date('Y'); ?>
+    </p>
+
 </footer>
 
 </body>
+
 </html>
