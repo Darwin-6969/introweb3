@@ -1,0 +1,445 @@
+/* =========================================
+   ESTILOS GENERALES
+   ========================================= */
+
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #eefbf8 0%, #f5f3ff 100%);
+    color: #263238;
+    min-height: 100vh;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.header {
+    background: linear-gradient(135deg, #0f766e, #4338ca);
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 5px 18px rgba(67, 56, 202, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Detalle decorativo del encabezado */
+.header::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    top: -100px;
+    right: 8%;
+    animation: flotar 5s ease-in-out infinite;
+}
+
+.header-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.header h1 {
+    font-size: 26px;
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+.boton {
+    display: inline-block;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #374151;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo */
+.boton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.boton:hover::before {
+    left: 130%;
+}
+
+.boton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.boton-agregar {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    width: 100%;
+}
+
+.boton-agregar:hover {
+    background: linear-gradient(135deg, #115e59, #0f766e);
+}
+
+.boton-vaciar {
+    background: linear-gradient(135deg, #dc2626, #f43f5e);
+}
+
+.boton-vaciar:hover {
+    background: linear-gradient(135deg, #b91c1c, #e11d48);
+}
+
+.carrito-link {
+    background-color: white;
+    color: #4338ca;
+    font-weight: bold;
+}
+
+.carrito-link:hover {
+    background-color: #f5f3ff;
+}
+
+.contador {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+    color: white;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    font-size: 12px;
+    box-shadow: 0 2px 6px rgba(225, 29, 72, 0.35);
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+    text-align: center;
+    padding: 50px 0 35px;
+    animation: aparecer 0.8s ease;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #312e81;
+}
+
+.hero p {
+    color: #64748b;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   PRODUCTOS
+   ========================================= */
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding-bottom: 50px;
+}
+
+.producto {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(20, 184, 166, 0.12);
+    box-shadow: 0 5px 18px rgba(15, 118, 110, 0.08);
+    transition: all 0.35s ease;
+    animation: aparecer 0.7s ease both;
+}
+
+/* Entrada escalonada de las tarjetas */
+.producto:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.producto:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.producto:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.producto:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.producto:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 30px rgba(67, 56, 202, 0.16);
+    border-color: rgba(20, 184, 166, 0.35);
+}
+
+.producto img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.producto:hover img {
+    transform: scale(1.05);
+}
+
+.producto-contenido {
+    padding: 20px;
+}
+
+.producto h3 {
+    margin-bottom: 12px;
+    font-size: 19px;
+    color: #334155;
+}
+
+.precio {
+    color: #0f766e;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   CARRITO
+   ========================================= */
+
+.carrito {
+    margin: 45px 0;
+    background-color: rgba(255, 255, 255, 0.96);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid rgba(67, 56, 202, 0.08);
+    box-shadow: 0 6px 22px rgba(67, 56, 202, 0.08);
+    animation: aparecer 0.7s ease;
+}
+
+.carrito h2 {
+    margin-bottom: 25px;
+    color: #312e81;
+}
+
+
+/* =========================================
+   TABLA
+   ========================================= */
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    background: linear-gradient(
+        135deg,
+        #f0fdfa,
+        #f5f3ff
+    );
+    color: #4338ca;
+}
+
+tbody tr {
+    transition: background-color 0.25s ease;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.cantidad {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 35px;
+    padding: 5px 10px;
+    background-color: #ccfbf1;
+    color: #0f766e;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.total {
+    color: #0f766e;
+    font-size: 20px;
+}
+
+
+/* =========================================
+   ACCIONES
+   ========================================= */
+
+.acciones {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* =========================================
+   CARRITO VACÍO
+   ========================================= */
+
+.carrito-vacio {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.icono-vacio {
+    font-size: 60px;
+    margin-bottom: 15px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+.carrito-vacio h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #312e81;
+}
+
+.carrito-vacio p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+    background: linear-gradient(135deg, #1e293b, #312e81);
+    color: white;
+}
+
+
+/* =========================================
+   ANIMACIONES
+   ========================================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flotar {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .header-contenido {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .productos {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h2 {
+        font-size: 26px;
+    }
+
+    .acciones {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .acciones .boton,
+    .acciones form {
+        width: 100%;
+    }
+
+    .acciones form button {
+        width: 100%;
+    }
+
+}
